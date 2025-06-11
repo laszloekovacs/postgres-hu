@@ -10,13 +10,16 @@ RUN apt-get update && apt-get install -y \
     hunspell-hu \
     && rm -rf /var/lib/apt/lists/*
 
+# convert encoding
+RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.aff -o /usr/share/hunspell/hu_HU.aff
+
 # Enable Hungarian dictionary
 RUN sed -i 's/# hu_HU.UTF-8 UTF-8/hu_HU.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 
 # Symlink dictionary files into PostgreSQL's tsearch_data dir
-RUN ln -s /usr/share/hunspell/hu_HU.aff /usr/share/postgresql/16/tsearch_data/hu_HU.aff && \
-    ln -s /usr/share/hunspell/hu_HU.dic /usr/share/postgresql/16/tsearch_data/hu_HU.dic
+RUN ln -s /usr/share/hunspell/hu_HU.aff /usr/share/postgresql/16/tsearch_data/hu_HU.affix && \
+    ln -s /usr/share/hunspell/hu_HU.dic /usr/share/postgresql/16/tsearch_data/hu_HU.dict
 
 RUN echo 'és vagy de hogy nem' > /usr/share/postgresql/16/tsearch_data/hu.stop
 
