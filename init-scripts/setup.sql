@@ -10,9 +10,9 @@ CREATE TEXT SEARCH DICTIONARY public.hunspell (
 
 CREATE TEXT SEARCH CONFIGURATION public.hu (COPY=pg_catalog.hungarian);
 
---ALTER TEXT SEARCH CONFIGURATION hu
---    ALTER MAPPING FOR asciiword, word, numword, email
- --   WITH hunspell;
+ALTER TEXT SEARCH CONFIGURATION hu
+   ALTER MAPPING FOR asciiword, word, numword, email
+   WITH hunspell;
 
 
 -- Create custom schema
