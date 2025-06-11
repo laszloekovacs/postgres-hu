@@ -7,15 +7,16 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # convert encoding
-# RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.aff -o /usr/share/hunspell/hu_HU.aff
+RUN echo '---- PROBLEMATIC PART ----'
+RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.aff -o /usr/share/hunspell/hu_HU.aff
 # RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.dic -o /usr/share/hunspell/hu_HU.dic
 
 # Symlink dictionary files into PostgreSQL's tsearch_data dir
-RUN ln -s /usr/share/hunspell/hu_HU.aff /usr/share/postgresql/16/tsearch_data/hu.affix && \
-    ln -s /usr/share/hunspell/hu_HU.dic /usr/share/postgresql/16/tsearch_data/hu.dict
+RUN ln -s /usr/share/hunspell/hu_HU.aff /usr/share/postgresql/17/tsearch_data/hu.affix && \
+    ln -s /usr/share/hunspell/hu_HU.dic /usr/share/postgresql/17/tsearch_data/hu.dict
 
 # add short word dict
-RUN echo 'és vagy de hogy nem' > /usr/share/postgresql/16/tsearch_data/hu.stop
+RUN echo 'és vagy de hogy nem' > /usr/share/postgresql/17/tsearch_data/hu.stop
 
 
 # Copy custom SQL scripts to enable extensions
