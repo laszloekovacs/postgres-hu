@@ -1,12 +1,8 @@
-FROM postgres:16
+FROM postgres:17
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    postgresql-server-dev-all \
-#    postgresql-16-postgis-3 \
-#    postgresql-16-postgis-3-scripts \
     postgresql-16-pgvector \
-    locales \
     hunspell-hu \
     && rm -rf /var/lib/apt/lists/*
 
@@ -30,5 +26,5 @@ COPY init-scripts/ /docker-entrypoint-initdb.d/
 ENV LANG=hu_HU.UTF-8  
 ENV LANGUAGE=hu_HU:hu
 ENV LC_ALL=hu_HU.UTF-8
-ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-ENV POSTGRES_USER=${POSTGRES_USER}
+#ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#ENV POSTGRES_USER=${POSTGRES_USER}
