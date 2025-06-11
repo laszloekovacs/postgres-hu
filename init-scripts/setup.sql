@@ -3,6 +3,13 @@ ALTER TEXT SEARCH CONFIGURATION hu
     ALTER MAPPING FOR asciiword, word, numword, email, url, protocol, numrange
     WITH hunspell_hungarian;
 
+CREATE TEXT SEARCH DICTIONARY hunspell_hu (
+  TEMPLATE = ispell,
+  DictFile = 'hu_HU',
+  AffFile = 'hu_HU',
+  StopWords = 'hu'
+);
+
 -- Create custom schema
   CREATE SCHEMA IF NOT EXISTS postgis;
 
