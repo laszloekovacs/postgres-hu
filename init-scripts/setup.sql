@@ -1,5 +1,5 @@
 
-CREATE TEXT SEARCH DICTIONARY public.hunspell_hu (
+CREATE TEXT SEARCH DICTIONARY public.hunspell (
   TEMPLATE = ispell,
   DictFile = hu,
   AffFile = hu,
@@ -9,9 +9,10 @@ CREATE TEXT SEARCH DICTIONARY public.hunspell_hu (
 
 
 CREATE TEXT SEARCH CONFIGURATION public.hu (COPY=pg_catalog.hungarian);
-ALTER TEXT SEARCH CONFIGURATION hu
-    ALTER MAPPING FOR asciiword, word, numword, email, url, protocol
-    WITH hunspell_hu;
+
+--ALTER TEXT SEARCH CONFIGURATION hu
+--    ALTER MAPPING FOR asciiword, word, numword, email
+ --   WITH hunspell;
 
 
 -- Create custom schema
