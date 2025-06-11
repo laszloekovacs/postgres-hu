@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 # convert encoding
 RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.aff -o /usr/share/hunspell/hu_HU.aff
-#RUN iconv -f ISO_8859-1 -t UTF-8 /urs/share/hunspell/hu_HU.dic -o /usr/share/hunspell/hu_HU.dic
+RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.dic -o /usr/share/hunspell/hu_HU.dic
 
 # Enable Hungarian dictionary
 RUN sed -i 's/# hu_HU.UTF-8 UTF-8/hu_HU.UTF-8 UTF-8/' /etc/locale.gen && \
