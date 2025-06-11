@@ -8,11 +8,11 @@ RUN apt-get update && apt-get install -y \
 
 # convert encoding
 RUN echo '---- PROBLEMATIC PART ----'
-RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.aff -o /usr/share/hunspell/hu_HU.aff
+RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.aff -o /usr/share/hunspell/hu_UTF8.aff
 # RUN iconv -f ISO_8859-1 -t UTF-8 /usr/share/hunspell/hu_HU.dic -o /usr/share/hunspell/hu_HU.dic
 
 # Symlink dictionary files into PostgreSQL's tsearch_data dir
-RUN ln -s /usr/share/hunspell/hu_HU.aff /usr/share/postgresql/17/tsearch_data/hu.affix && \
+RUN ln -s /usr/share/hunspell/hu_UTF8.aff /usr/share/postgresql/17/tsearch_data/hu.affix && \
     ln -s /usr/share/hunspell/hu_HU.dic /usr/share/postgresql/17/tsearch_data/hu.dict
 
 # add short word dict
