@@ -1,14 +1,18 @@
-CREATE TEXT SEARCH CONFIGURATION IF NOT EXISTS public.hu (COPY=pg_catalog.hungarian);
-ALTER TEXT SEARCH CONFIGURATION hu
-    ALTER MAPPING FOR asciiword, word, numword, email, url, protocol, numrange
-    WITH hunspell_hungarian;
 
-CREATE TEXT SEARCH DICTIONARY IF NOT EXISTS public.hunspell_hu (
+CREATE TEXT SEARCH DICTIONARY public.hunspell_hu (
   TEMPLATE = ispell,
-  DictFile = 'hu_HU',
-  AffFile = 'hu_HU',
-  StopWords = 'hu'
+  DictFile = hu,
+  AffFile = hu,
+  StopWords = hu
 );
+
+
+
+CREATE TEXT SEARCH CONFIGURATION public.hu (COPY=pg_catalog.hungarian);
+ALTER TEXT SEARCH CONFIGURATION hu
+    ALTER MAPPING FOR asciiword, word, numword, email, url, protocol
+    WITH hunspell_hu;
+
 
 -- Create custom schema
 --  CREATE SCHEMA IF NOT EXISTS postgis;
