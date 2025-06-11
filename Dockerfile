@@ -26,6 +26,6 @@ COPY init-scripts/ /docker-entrypoint-initdb.d/
 
 
 # Set default locale
-ENV LANG hu_HU.UTF-8  
-ENV LANGUAGE hu_HU:hu
-ENV LC_ALL hu_HU.UTF-8
+ENV LANG=hu_HU.UTF-8  
+ENV LANGUAGE=hu_HU:hu
+ENV LC_ALL=hu_HU.UTF-8
