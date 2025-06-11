@@ -1,21 +1,21 @@
--- Enable PostGIS (includes raster)
-CREATE EXTENSION IF NOT EXISTS postgis;
-
--- Enable pgvector
-CREATE EXTENSION IF NOT EXISTS vector;
-
--- Set default text search config to Hungarian
-UPDATE pg_catalog.pg_user SET useconfig = '{default_text_search_config=pg_catalog.hungarian}' WHERE usename = CURRENT_USER;
-
--- Optional: Create test table with full-text search
-CREATE TEXT SEARCH DICTIONARY hungarian_hunspell (
-    TEMPLATE = hunspell,
-    DictFile = hu_HU,
-    AffFile = hu_HU,
-    StopWords = hungarian
-);
-
 CREATE TEXT SEARCH CONFIGURATION public.hu (COPY=pg_catalog.hungarian);
 ALTER TEXT SEARCH CONFIGURATION hu
     ALTER MAPPING FOR asciiword, word, numword, email, url, protocol, numrange
     WITH hunspell_hungarian;
+
+-- Create custom schema
+  CREATE SCHEMA IF NOT EXISTS postgis;
+
+  -- Install extensions into custom schema
+  CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;
+  CREATE EXTENSION IF NOT EXISTS postgis_topology SCHEMA postgis;
+
+  -- Optional: install other useful PostGIS extensions
+  CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
+  CREATE EXTENSION IF NOT EXISTS postgis_tiger_geocoder;
+  CREATE EXTENSION IF NOT EXISTS postgis_raster;
+
+CREATE EXTENSION IF NOT EXISTS vector;
+
+  -- Move functions to postgis schema
+  ALTER DATABASE $POSTGRES_DB SET search_path = public, postgis;
